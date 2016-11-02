@@ -14,7 +14,10 @@ class IndexView(View):
     form = LoginForm()
 
     def get(self, request):
-        return render(request, 'login/index.html', {'form': self.form})
+        if request.user.is_authenticated:
+            return redirect(reverse('analysis'))
+        else:
+            return render(request, 'login/index.html', {'form': self.form})
 
     def post(self, request):
         username = request.POST['username']
@@ -22,7 +25,7 @@ class IndexView(View):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/analysis/')
+            return redirect(reverse('analysis'))
         else:
             return render(request, 'login/index.html', {'form': self.form, 'error':'Credentials are invalid'})
 
