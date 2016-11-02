@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UploadForm
-
+from .scripts.NormalizedModelTesting import testToModel_onefile
+from .scripts.preprocessor import match_to_plate_new
 # Create your views here.
 
 
@@ -18,7 +19,9 @@ class IndexView(LoginRequiredMixin, View):
 
     def post(self, request):
         file = request.FILES['file']
-        #todo process file with scripts
+        result = testToModel_onefile(file)
+        matched = match_to_plate_new(result['result'], result['skipped'], result['plate'])
+        plate_size = result['plate']
 
-        return HttpResponse(file)
+        return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size': plate_size})
 

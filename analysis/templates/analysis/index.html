@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "analysis/header.html" %}
 
+{% block content %}
 {% if error %}
     <strong>{{ error }}</strong>
 {% endif %}
@@ -18,5 +13,4 @@
     <input type="submit" value="Process"/>
 </form>
 
-</body>
-</html>
+{% endblock %}
