@@ -4,6 +4,8 @@
 #anything in idea folder
 .idea/
 
+/__pycache__/
+
 # User-specific stuff:
 .idea/workspace.xml
 .idea/tasks.xml
