@@ -6,9 +6,6 @@ from django.urls import reverse
 from django.http import HttpResponse
 
 
-# Create your views here.
-
-
 class IndexView(View):
 
     form = LoginForm()

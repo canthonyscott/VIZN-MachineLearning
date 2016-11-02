@@ -6,7 +6,17 @@
 </head>
 <body>
 
+{% if error %}
+    <strong>{{ error }}</strong>
+{% endif %}
+
     <h2>Analysis Template Working</h2>
+
+<form action="{% url 'analysis' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Process"/>
+</form>
 
 </body>
 </html>
