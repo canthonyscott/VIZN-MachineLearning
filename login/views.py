@@ -21,7 +21,6 @@ class IndexView(View):
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
-            #todo something to login user
             login(request, user)
             return redirect('/analysis/')
         else:
