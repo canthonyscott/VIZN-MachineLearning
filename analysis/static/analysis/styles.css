@@ -1,0 +1,11 @@
+.Normal{
+    background-color: seagreen;
+}
+
+.Abnormal{
+    background-color: tomato;
+}
+
+.skipped{
+    background-color: grey;
+}
