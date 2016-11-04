@@ -2,6 +2,7 @@
 
 {% block content %}
 
+    {% if histories %}
     <table class="table">
     <thead>
     <tr>
@@ -11,6 +12,8 @@
     </tr>
     </thead>
     <tbody>
+
+
     {% for history in histories %}
         <tr>
         <td>{{ history.filename }}</td>
@@ -21,9 +24,13 @@
             </form>
         </td>
         </tr>
+
     {% endfor %}
     </tbody>
     </table>
 
+    {% else %}
+        You have not uploaded any files yet!
+    {% endif %}
 
 {% endblock %}

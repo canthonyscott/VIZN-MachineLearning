@@ -25,15 +25,16 @@ class IndexView(LoginRequiredMixin, View):
         result = testToModel_onefile(file)
         matched = match_to_plate_new(result['result'], result['skipped'], result['plate'])
         plate_size = result['plate']
-        self.save_to_db(filename, matched, request.user)
+        self.save_to_db(filename, matched, request.user, plate_size)
         return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size': plate_size})
 
-    def save_to_db(self, filename, matched, owner):
+    def save_to_db(self, filename, matched, owner, plate_size):
         p_matched = pickle.dumps(matched)
         result = Result()
         result.results = p_matched
         result.filename = filename
         result.owner = owner
+        result.plate_size = plate_size
         result.save()
 
 
@@ -45,8 +46,15 @@ class HistoryView(LoginRequiredMixin, View):
         # get any potential GET params
         ID = request.GET.get('id')
 
-        if ID is None:
+        if ID is not None:
+            details = Result.objects.get(pk=ID)
+            matched = pickle.loads(details.results)
+            plate_size = details.plate_size
+            return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size':plate_size})
+
+        else:
             # no ID sent, display all
             histories = Result.objects.filter(owner=request.user)
             return render(request, 'analysis/history.html', {'histories': histories})
+
 
