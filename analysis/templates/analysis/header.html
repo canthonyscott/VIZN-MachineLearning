@@ -26,6 +26,16 @@
         <h1>VIZN - Machine Learning</h1>
     </div>
 
+    <div class="row nav">
+        <div class="col-md-12">
+            <a class="nav-item" href="{% url "analysis" %}">Upload</a>
+            <a class="nav-item" href="#">History</a>
+            {% if user.is_authenticated %}
+            <a class="nav-item" href="/logout">Logout</a>
+            {% endif %}
+        </div>
+    </div>
+
     {% block content %}{% endblock %}
 
 
