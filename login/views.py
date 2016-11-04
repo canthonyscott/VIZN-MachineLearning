@@ -17,8 +17,8 @@ class IndexView(View):
             return render(request, 'login/index.html', {'form': self.form})
 
     def post(self, request):
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
