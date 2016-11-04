@@ -1,0 +1,29 @@
+{% extends "analysis/header.html" %}
+
+{% block content %}
+
+    <table class="table">
+    <thead>
+    <tr>
+        <th>Filename</th>
+        <th>Date Uploaded</th>
+        <th>View Result</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for history in histories %}
+        <tr>
+        <td>{{ history.filename }}</td>
+        <td>{{ history.datetime }}</td>
+        <td>
+            <form action="{% url 'history' %}" method="get">
+                <button class="btn btn-sm btn-primary" name="id" type="submit" value="{{ history.id }}">Show Result</button>
+            </form>
+        </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+
+{% endblock %}

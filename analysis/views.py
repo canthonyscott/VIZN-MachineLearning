@@ -36,3 +36,17 @@ class IndexView(LoginRequiredMixin, View):
         result.owner = owner
         result.save()
 
+
+class HistoryView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
+    def get(self, request):
+        # get any potential GET params
+        ID = request.GET.get('id')
+
+        if ID is None:
+            # no ID sent, display all
+            histories = Result.objects.filter(owner=request.user)
+            return render(request, 'analysis/history.html', {'histories': histories})
+
