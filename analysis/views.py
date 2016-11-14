@@ -1,7 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from .forms import UploadForm
 from .scripts.NormalizedModelTesting import testToModel_onefile
 from .scripts.preprocessor import match_to_plate_new
@@ -50,7 +52,7 @@ class HistoryView(LoginRequiredMixin, View):
             details = Result.objects.get(pk=ID)
             matched = pickle.loads(details.results)
             plate_size = details.plate_size
-            return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size':plate_size})
+            return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size':plate_size, 'item_id': ID})
 
         else:
             # no ID sent, display all
@@ -58,3 +60,17 @@ class HistoryView(LoginRequiredMixin, View):
             return render(request, 'analysis/history.html', {'histories': histories})
 
 
+class DeleteHistory(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
+    def post(self, request):
+        # delete the history and return to history view
+        ID = request.POST.get('id',0)
+        if ID:
+            Result.objects.filter(pk=ID).delete()
+            messages.add_message(request, messages.SUCCESS, 'Successfully Deleted History.')
+            return redirect(reverse('history'))
+
+        else:
+            return HttpResponseBadRequest

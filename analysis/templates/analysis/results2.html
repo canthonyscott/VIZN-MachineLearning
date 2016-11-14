@@ -64,6 +64,16 @@
             {% endif %}
         </div>
     </div>
+            {% if item_id %}
+            <div class="row">
+                <div class="col-md-3">
+                    <form action="{% url 'delete' %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-warning" type="submit" name="id" value="{{ item_id }}">Delete From History</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
         {% endif %}
 
 {% endblock %}

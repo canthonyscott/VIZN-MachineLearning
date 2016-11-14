@@ -8,7 +8,7 @@
     <tr>
         <th>Filename</th>
         <th>Date Uploaded</th>
-        <th>View Result</th>
+        <th>Result</th>
     </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
         <td>{{ history.datetime }}</td>
         <td>
             <form action="{% url 'history' %}" method="get">
-                <button class="btn btn-sm btn-primary" name="id" type="submit" value="{{ history.id }}">Show Result</button>
+                <button class="btn btn-sm btn-primary" name="id" type="submit" value="{{ history.id }}">View</button>
             </form>
         </td>
         </tr>
