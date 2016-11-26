@@ -17,11 +17,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.contrib.auth import views
+from login.views import CreateUser
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^analysis/', include('analysis.urls')),
     url(r'^login/', include('login.urls')),
     url(r'^logout/', views.logout, {'next_page':'/login'}),
+    url(r'^signup/', CreateUser.as_view(), name='signup'),
     url(r'^$', lambda r: HttpResponseRedirect('/login/')),
 ]

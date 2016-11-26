@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .forms import LoginForm
+from .forms import LoginForm, CreateUser
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from django.http import HttpResponse
@@ -27,4 +27,8 @@ class IndexView(View):
             return render(request, 'login/index.html', {'form': self.form, 'error':'Credentials are invalid'})
 
 
+class CreateUser(View):
+     form = CreateUser()
 
+     def get(self, request):
+         return render(request, 'login/create.html', {'form': self.form})

@@ -69,7 +69,7 @@ class DeleteHistory(LoginRequiredMixin, View):
         ID = request.POST.get('id',0)
         if ID:
             Result.objects.filter(pk=ID).delete()
-            messages.add_message(request, messages.SUCCESS, 'Successfully Deleted History.')
+            messages.add_message(request, messages.SUCCESS, 'Successfully Deleted History')
             return redirect(reverse('history'))
 
         else:
