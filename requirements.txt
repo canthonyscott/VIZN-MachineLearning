@@ -1,5 +1,6 @@
 Django==1.10.3
 django-widget-tweaks==1.4.1
+gunicorn==19.6.0
 numpy==1.11.2
 pandas==0.19.1
 python-dateutil==2.6.0
