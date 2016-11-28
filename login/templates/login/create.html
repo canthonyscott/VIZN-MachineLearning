@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <h2 style="text-align: center">Create account to analyze data</h2>
 
-            <form class="form-horizontal login-form" action="{% url 'login' %}" method="post">
+            <form class="form-horizontal login-form" action="{% url 'signup' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="{{ form.username.id_for_label }}">Username: </label>

@@ -29,6 +29,11 @@
     margin-right: auto
 }
 
+.error {
+    border-color: darkred;
+    background-color: lightcoral;
+}
+
 .header{
     border-bottom: 1px solid black;
 }

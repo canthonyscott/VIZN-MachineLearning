@@ -39,10 +39,10 @@
 {% if messages %}
 <div class="row">
     <div class="col-md-12">
-        <div class="flash">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
+        {% for message in messages %}
+            <div class="flash {{ message.tags }}">
+                <strong>{{ message }}</strong>
+        {% endfor %}
         </div>
     </div>
 </div>
