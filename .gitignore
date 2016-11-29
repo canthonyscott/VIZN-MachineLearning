@@ -47,3 +47,6 @@ fabric.properties
 
 #sqlite test dbs
 *.db
+
+#annopying pyc files
+*.pyc
