@@ -3,14 +3,10 @@
 {% block content %}
     {% load widget_tweaks %}
     <div class="row">
-        <div class="col-md-12">
-            <h2 style="text-align: center">Login to analyze data</h2>
+        <div class="col-xs-12 col-sm-offset-3 col-sm-6 login-form">
+            <h3>Login to analyze data</h3>
 
-            {% if error %}
-                <strong>{{ error }}</strong>
-            {% endif %}
-
-            <form class="form-horizontal login-form" action="{% url 'login' %}" method="post">
+            <form class="form-horizontal" action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="{{ form.username.id_for_label }}">Username: </label>
@@ -29,11 +25,8 @@
                 </div>
 
             </form>
-
+                <p class="signup">Or <a href="{% url 'signup' %}">create an account</a> to analyze data</p>
         </div>
-    <div class="col-sm-offset-4 col-sm-4 text-center">
-        <p class="signup">Or <a href="{% url 'signup' %}">create an account</a> to analyze data</p>
 
-    </div>
     </div>
 {% endblock %}
