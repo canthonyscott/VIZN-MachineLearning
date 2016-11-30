@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -49,7 +49,11 @@ class HistoryView(LoginRequiredMixin, View):
         ID = request.GET.get('id')
 
         if ID is not None:
-            details = Result.objects.get(pk=ID)
+            try:
+                details = Result.objects.get(pk=ID, owner=request.user)
+            except Result.DoesNotExist:
+                return HttpResponseForbidden()
+
             matched = pickle.loads(details.results)
             plate_size = details.plate_size
             return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size':plate_size, 'item_id': ID})
