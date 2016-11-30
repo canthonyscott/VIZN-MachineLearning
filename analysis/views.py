@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbid
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from .forms import UploadForm
 from .scripts.NormalizedModelTesting import testToModel_onefile
 from .scripts.preprocessor import match_to_plate_new
@@ -52,7 +53,7 @@ class HistoryView(LoginRequiredMixin, View):
             try:
                 details = Result.objects.get(pk=ID, owner=request.user)
             except Result.DoesNotExist:
-                return HttpResponseForbidden()
+                raise PermissionDenied
 
             matched = pickle.loads(details.results)
             plate_size = details.plate_size
