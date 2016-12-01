@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^analysis/', include('analysis.urls')),
     url(r'^login/', include('login.urls')),
-    url(r'^logout/', views.logout, {'next_page':'/login'}),
+    url(r'^logout/', views.logout, {'next_page':'/login'}, name="logout"),
     url(r'^signup/', CreateUser.as_view(), name='signup'),
     url(r'^$', lambda r: HttpResponseRedirect('/login/')),
 ]
