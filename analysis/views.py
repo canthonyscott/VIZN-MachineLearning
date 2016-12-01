@@ -20,7 +20,7 @@ class IndexView(LoginRequiredMixin, View):
     form = UploadForm()
 
     def get(self, request):
-        return render(request, 'analysis/index.html', {'form': self.form})
+        return render(request, 'analysis/index.html', {'form': self.form, 'nbar': 'analysis'})
 
     def post(self, request):
         file = request.FILES['file']
@@ -62,7 +62,7 @@ class HistoryView(LoginRequiredMixin, View):
         else:
             # no ID sent, display all
             histories = Result.objects.filter(owner=request.user)
-            return render(request, 'analysis/history.html', {'histories': histories})
+            return render(request, 'analysis/history.html', {'histories': histories, 'nbar': 'history'})
 
 
 class DeleteHistory(LoginRequiredMixin, View):

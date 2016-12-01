@@ -6,73 +6,75 @@
         {% if error %}<p class=error><strong>Error:</strong>{{ error }}{% endif %}
 
         {% if matched %}
-        <div class="col-lg-12">
-            {% if plate_size == 48 %}
-                <table class="table table-bordered">
-                <thead class="plate">
-                <tr>
-                    <th class="plate">1</th>
-                    <th class="plate">2</th>
-                    <th class="plate">3</th>
-                    <th class="plate">4</th>
-                    <th class="plate">5</th>
-                    <th class="plate">6</th>
-                    <th class="plate">7</th>
-                    <th class="plate">8</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for item in matched %}
-                    {% cycle '<tr>' '' '' '' '' '' '' '' %}
-                    <td class="{{ item }}">{{ item }}</td>
-                    {% cycle '' '' '' '' '' '' '' '</tr>' %}
-                {% endfor %}
-                </tbody>
-                </table>
+            <div class="col-lg-12">
+                {% if plate_size == 48 %}
+                    <table class="table table-bordered">
+                        <thead class="plate">
+                        <tr>
+                            <th class="plate">1</th>
+                            <th class="plate">2</th>
+                            <th class="plate">3</th>
+                            <th class="plate">4</th>
+                            <th class="plate">5</th>
+                            <th class="plate">6</th>
+                            <th class="plate">7</th>
+                            <th class="plate">8</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in matched %}
+                            {% cycle '<tr>' '' '' '' '' '' '' '' %}
+                            <td class="{{ item }}">{{ item }}</td>
+                            {% cycle '' '' '' '' '' '' '' '</tr>' %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
 
-            {% endif %}
-
-
-            {% if plate_size == 96 %}
-                                <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th class="plate">1</th>
-                    <th class="plate">2</th>
-                    <th class="plate">3</th>
-                    <th class="plate">4</th>
-                    <th class="plate">5</th>
-                    <th class="plate">6</th>
-                    <th class="plate">7</th>
-                    <th class="plate">8</th>
-                    <th class="plate">9</th>
-                    <th class="plate">10</th>
-                    <th class="plate">11</th>
-                    <th class="plate">12</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for item in matched %}
-                    {% cycle '<tr>' '' '' '' '' '' '' '' '' '' '' '' %}
-                    <td class="{{ item }}">{{ item }}</td>
-                    {% cycle '' '' '' '' '' '' '' '' '' '' '' '</tr>' %}
-                {% endfor %}
-                </tbody>
-                </table>
+                {% endif %}
 
 
-            {% endif %}
-        </div>
-    </div>
-            {% if item_id %}
-            <div class="row">
-                <div class="col-md-3">
-                    <form action="{% url 'delete' %}" method="post">
-                        {% csrf_token %}
-                        <button class="btn btn-warning" type="submit" name="id" value="{{ item_id }}">Delete From History</button>
-                    </form>
-                </div>
+                {% if plate_size == 96 %}
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="plate">1</th>
+                            <th class="plate">2</th>
+                            <th class="plate">3</th>
+                            <th class="plate">4</th>
+                            <th class="plate">5</th>
+                            <th class="plate">6</th>
+                            <th class="plate">7</th>
+                            <th class="plate">8</th>
+                            <th class="plate">9</th>
+                            <th class="plate">10</th>
+                            <th class="plate">11</th>
+                            <th class="plate">12</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in matched %}
+                            {% cycle '<tr>' '' '' '' '' '' '' '' '' '' '' '' %}
+                            <td class="{{ item }}">{{ item }}</td>
+                            {% cycle '' '' '' '' '' '' '' '' '' '' '' '</tr>' %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+
+                {% endif %}
             </div>
+            </div>
+            {% if item_id %}
+                <div class="row">
+                    <div class="col-md-3">
+                        <form action="{% url 'delete' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-warning" type="submit" name="id" value="{{ item_id }}">Delete From
+                                History
+                            </button>
+                        </form>
+                    </div>
+                </div>
             {% endif %}
         {% endif %}
 
