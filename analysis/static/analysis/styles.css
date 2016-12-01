@@ -48,31 +48,31 @@
     margin-top: 80px;
 }
 
-.nav-item{
-    border: 2px solid dodgerblue;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    font-size: 18px;
-    margin-left: 5px;
-}
+/*.nav-item{*/
+    /*border: 2px solid dodgerblue;*/
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
+    /*padding-bottom: 5px;*/
+    /*padding-top: 5px;*/
+    /*font-size: 18px;*/
+    /*margin-left: 5px;*/
+/*}*/
 
-.nav-item:hover{
-    background-color: dodgerblue;
-    color: white;
-}
+/*.nav-item:hover{*/
+    /*background-color: dodgerblue;*/
+    /*color: white;*/
+/*}*/
 
-.nav-item:active{
-    font-weight: bold;
-}
+/*.nav-item:active{*/
+    /*font-weight: bold;*/
+/*}*/
 
-.nav {
-    margin-top: 9px;
-    margin-bottom: 7px;
-    border-bottom: 1px solid black;
-    padding-bottom: 9px;
-}
+/*.nav {*/
+    /*margin-top: 9px;*/
+    /*margin-bottom: 7px;*/
+    /*border-bottom: 1px solid black;*/
+    /*padding-bottom: 9px;*/
+/*}*/
 
 h2, h3{
     text-align: center;
