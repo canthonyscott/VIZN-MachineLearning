@@ -11,7 +11,7 @@ class Result(models.Model):
     plate_size = models.IntegerField()
 
     class Meta:
-        ordering = ('datetime',)
+        ordering = ('-datetime',)
 
     def __str__(self):
         return self.filename
