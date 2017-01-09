@@ -8,11 +8,14 @@ def testToModel_onefile(file):
 
     # load trained model
     clf = joblib.load(os.path.join(BASE_DIR, 'analysis/scripts/model/SVC_rbf_wt_tuned_std.model'))
+    scaler = joblib.load(os.path.join(BASE_DIR, 'analysis/scripts/model/scaler.model'))
     # data = pc.one_file_extract_and_norm_timepoints(file)
+    data = pc.one_file_extract_and_no_norm(file)
+    X = scaler.transform(data['array'])
 
-    # todo create method to do not normalization
+
     try:
-        result = clf.predict(data['array'])
+        result = clf.predict(X)
     except:
         print("DATA NOT AS EXPECTED. ABORTING.")
         exit(1)
