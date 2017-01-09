@@ -6,7 +6,7 @@
 # it in the fish_to_pull list. It returns a dict containing an array of values
 # and a list of wells skipped during its processing.
 
-
+# todo add new non-norm method
 
 def one_file_extract_and_norm_timepoints(file):
     import pandas as pd

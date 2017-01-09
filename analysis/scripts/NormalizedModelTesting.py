@@ -7,8 +7,10 @@ def testToModel_onefile(file):
 
 
     # load trained model
-    clf = joblib.load(os.path.join(BASE_DIR, 'analysis/scripts/model/SVC_rbf_wt_cleaned.model'))
-    data = pc.one_file_extract_and_norm_timepoints(file)
+    clf = joblib.load(os.path.join(BASE_DIR, 'analysis/scripts/model/SVC_rbf_wt_tuned_std.model'))
+    # data = pc.one_file_extract_and_norm_timepoints(file)
+
+    # todo create method to do not normalization
     try:
         result = clf.predict(data['array'])
     except:
