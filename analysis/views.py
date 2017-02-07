@@ -25,7 +25,12 @@ class IndexView(LoginRequiredMixin, View):
     def post(self, request):
         file = request.FILES['file']
         filename = file.name
-        result = testToModel_onefile(file)
+        try:
+            result = testToModel_onefile(file)
+        except ValueError:
+            messages.add_message(request, messages.ERROR, "Could not determine plate size, file likely has errors")
+            return redirect(reverse('analysis'))
+
         matched = match_to_plate_new(result['result'], result['skipped'], result['plate'])
         plate_size = result['plate']
         self.save_to_db(filename, matched, request.user, plate_size)

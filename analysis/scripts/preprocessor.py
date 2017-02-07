@@ -31,6 +31,9 @@ def one_file_extract_and_no_norm(file):
         plate_size = 96
         print("96 well plate detected, using 96 well layout.")
 
+    else:
+        raise ValueError('Could not determine plate size, file likely has errors')
+
     # pull out individual fish
     for item in fish_to_pull:
         fish = data.loc[data.animal == item].actinteg.values
