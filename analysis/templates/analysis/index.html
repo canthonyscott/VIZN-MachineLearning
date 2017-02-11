@@ -5,12 +5,12 @@
     <div class="row">
         <div class="col-xs-12 col-sm-offset-3 col-sm-6 upload-form">
             <h3>Upload data for analysis</h3>
-            <form class="form-horizontal" action="{% url 'analysis' %}" method="post" enctype="multipart/form-data">
+            <form id="upload_frm" class="form-horizontal" action="{% url 'analysis' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                    {{ form.file | add_class:"form-control" }}
+                    {{ form.file | add_class:"form-control"}}
                 </div>
-                <button class="btn btn-primary" type="submit">Process data</button>
+                <button id="upload_btn" class="btn btn-primary" type="submit">Process data</button>
             </form>
         </div>
     </div>
