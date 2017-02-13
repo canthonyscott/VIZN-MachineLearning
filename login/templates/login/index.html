@@ -1,4 +1,5 @@
 {% extends "analysis/header.html" %}
+{% load static %}
 
 {% block content %}
     {% load widget_tweaks %}
@@ -28,5 +29,12 @@
                 <p class="signup">Or <a href="{% url 'signup' %}">create an account</a> to analyze data</p>
         </div>
 
+    </div>
+
+    <div class="row">
+    <div class=" col-sm-offset-3 col-sm-6 text-center">
+        <p>Want to demo this app? <a href="{% url 'signup' %}">Create an account</a>
+            and <a href="{% static "analysis/sampleData.XLS" %}">upload this file</a>.</p>
+    </div>
     </div>
 {% endblock %}
