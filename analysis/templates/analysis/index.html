@@ -3,6 +3,12 @@
 {% block content %}
     {% load widget_tweaks %}
     <div class="row">
+        <div class="col-sm-offset-3 col-sm-6 text-center bg-warning">
+            <p>Attention: This app is in alpha stage of development. Data may be wiped at anytime
+            without warning. Do not keep any data here you cannot replace.</p>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12 col-sm-offset-3 col-sm-6 upload-form">
             <h3>Upload data for analysis</h3>
             <form id="upload_frm" class="form-horizontal" action="{% url 'analysis' %}" method="post" enctype="multipart/form-data">
