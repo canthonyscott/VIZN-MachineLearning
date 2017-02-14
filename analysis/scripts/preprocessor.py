@@ -93,6 +93,41 @@ def match_to_plate_new(result_array, skipped_wells, plate_size):
 
     return ordered
 
+def match_to_plate_json(result_array, skipped_wells, plate_size, probability=False):
+    """Takes Result array (Class labels or probabilities), skipped wells,
+    plate size and outputs a JSON object with the plate size along with an array containing
+    well IDs and the result output. If using probabilities the probability flag must be
+    set to True."""
+
+    from . import constants
+    import json
+
+    if plate_size == 48:
+        all_wells = constants.wells48
+    elif plate_size == 96:
+        all_wells = constants.wells96
+
+    # matched_dict = OrderedDict()
+    ordered = []
+    final = []
+    final.append({'plate_size:': plate_size})
+    counter = 0
+
+    for well in all_wells:
+        if well not in skipped_wells:
+            if probability:
+                result = result_array[:,1][counter]
+                ordered.append({'well': well, 'result': result})
+            else:
+                ordered.append({'well': well, 'result': result_array[counter]})
+            counter += 1
+        else:
+            ordered.append({'well': well, 'result': 'skipped'})
+
+    final.append({'data': ordered})
+    return json.dumps(final)
+
+
 
 def process_for_prediction(input):
     """Takes a raw input array, scales it, takes the log1p of it,
