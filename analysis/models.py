@@ -6,6 +6,7 @@ from django.db import models
 class Result(models.Model):
     filename = models.CharField(max_length=255)
     results = models.BinaryField()
+    probabilities = models.BinaryField()
     datetime = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey('auth.User', related_name='results')
     plate_size = models.IntegerField()

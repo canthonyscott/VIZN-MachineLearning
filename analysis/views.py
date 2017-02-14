@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from .forms import UploadForm
 from .scripts.NormalizedModelTesting import testToModel_onefile
-from .scripts.preprocessor import match_to_plate_new
+from .scripts.preprocessor import match_to_plate_new, match_to_plate_json
 from .models import Result
 import pickle
 # Create your views here.
@@ -33,16 +33,21 @@ class IndexView(LoginRequiredMixin, View):
 
         matched = match_to_plate_new(result['result'], result['skipped'], result['plate'])
         plate_size = result['plate']
-        self.save_to_db(filename, matched, request.user, plate_size)
-        return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size': plate_size})
+        probabilities = match_to_plate_json(result['result_prob'], result['skipped'], result['plate'], probability=True)
 
-    def save_to_db(self, filename, matched, owner, plate_size):
+        self.save_to_db(filename, matched, request.user, plate_size, probabilities)
+        return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size': plate_size,
+                                                          'probabilities': probabilities})
+
+    def save_to_db(self, filename, matched, owner, plate_size, probabilities):
         p_matched = pickle.dumps(matched)
+        prob_pkl = pickle.dumps(probabilities)
         result = Result()
         result.results = p_matched
         result.filename = filename
         result.owner = owner
         result.plate_size = plate_size
+        result.probabilities = prob_pkl
         result.save()
 
 
@@ -61,8 +66,10 @@ class HistoryView(LoginRequiredMixin, View):
                 raise PermissionDenied
 
             matched = pickle.loads(details.results)
+            probabilities = pickle.loads(details.probabilities)
             plate_size = details.plate_size
-            return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size':plate_size, 'item_id': ID})
+            return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size':plate_size,
+                                                              'item_id': ID, 'probabilities': probabilities})
 
         else:
             # no ID sent, display all
