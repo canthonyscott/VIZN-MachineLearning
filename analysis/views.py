@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -35,9 +35,8 @@ class IndexView(LoginRequiredMixin, View):
         plate_size = result['plate']
         probabilities = match_to_plate_json(result['result_prob'], result['skipped'], result['plate'], probability=True)
 
-        self.save_to_db(filename, matched, request.user, plate_size, probabilities)
-        return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size': plate_size,
-                                                          'probabilities': probabilities})
+        new_id = self.save_to_db(filename, matched, request.user, plate_size, probabilities)
+        return render(request, 'analysis/results2.html', {'matched': matched, 'plate_size': plate_size, 'item_id': new_id})
 
     def save_to_db(self, filename, matched, owner, plate_size, probabilities):
         p_matched = pickle.dumps(matched)
@@ -49,6 +48,7 @@ class IndexView(LoginRequiredMixin, View):
         result.plate_size = plate_size
         result.probabilities = prob_pkl
         result.save()
+        return result.pk
 
 
 class HistoryView(LoginRequiredMixin, View):
@@ -66,10 +66,9 @@ class HistoryView(LoginRequiredMixin, View):
                 raise PermissionDenied
 
             matched = pickle.loads(details.results)
-            probabilities = pickle.loads(details.probabilities)
             plate_size = details.plate_size
             return render(request, 'analysis/results2.html', {'matched':matched, 'plate_size':plate_size,
-                                                              'item_id': ID, 'probabilities': probabilities})
+                                                              'item_id': ID})
 
         else:
             # no ID sent, display all
@@ -88,6 +87,27 @@ class DeleteHistory(LoginRequiredMixin, View):
             Result.objects.filter(pk=ID).delete()
             messages.add_message(request, messages.SUCCESS, 'Successfully Deleted History')
             return redirect(reverse('history'))
+
+        else:
+            return HttpResponseBadRequest
+
+
+class AjaxProbability(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
+    def get(self, request):
+        ID = request.GET.get('id')
+
+        if ID is not None:
+            try:
+                details = Result.objects.get(pk=ID, owner=request.user)
+            except Result.DoesNotExist:
+                raise PermissionDenied
+
+            probabilities = pickle.loads(details.probabilities)
+
+            return HttpResponse(probabilities, content_type='application/json')
 
         else:
             return HttpResponseBadRequest

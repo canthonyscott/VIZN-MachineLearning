@@ -78,12 +78,5 @@
             {% endif %}
         {% endif %}
     {% load static %}
-<script src="{% static "analysis/scripts.js" %}"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var prob_obj = {{ probabilities|safe }};
-        console.log(prob_obj[0]);
-    });
-</script>
 
 {% endblock %}

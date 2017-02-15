@@ -1,10 +1,11 @@
 from django.conf.urls import url, include
 
-from analysis.views import IndexView, HistoryView, DeleteHistory
+from analysis.views import IndexView, HistoryView, DeleteHistory, AjaxProbability
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='analysis'),
     url(r'^history/', HistoryView.as_view(), name='history'),
     url(r'^delete/', DeleteHistory.as_view(), name='delete'),
+    url(r'^probabilities/', AjaxProbability.as_view(), name='probability'),
 
 ]
