@@ -20,6 +20,11 @@
 
 {% load static %}
 <link rel="stylesheet" href="{% static "analysis/styles2.css" %}">
+<script>
+    {% if item_id %}
+        var item_id = "{{ item_id }}";
+    {% endif %}
+</script>
 <script src="{% static "analysis/scripts.js" %}"></script>
 
 
